@@ -5,7 +5,7 @@ document.addEventListener('lobby_started', e => {
 
 function startListeningForLeaderboard(){
     const leaderboard = document.getElementById('leaderboard');
-
+    leaderboard.innerHTML = '';
     const leaderboardPlayer = document.getElementById('leaderboardPlayer');
 
     db.ref(`/games/${currentGameId}/players`).on('value', function(snapshot) {

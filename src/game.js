@@ -67,9 +67,10 @@ function startGame(){
   setTimeout(function( ) { 
     clearInterval( i ); 
     console.log(`Final score: ${score}`);
-    game_box.visibility = 'hidden';
+    game_box.style.visibility = 'hidden';
   }, timeout);
 }
+
 
 document.addEventListener('game_started', e=> {
   startGame();
