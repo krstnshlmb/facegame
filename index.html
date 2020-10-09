@@ -52,34 +52,25 @@
         Join a game
       </div>
       <div class="host-form">
-        <form action="#" method="POST">
-          <label for="nickname" class="label">Nickname</label>
-          <input type="nickname" name="nickname" id="nickname" placeholder="Enter your nickname for the game here" class="input">
-          <input type="submit" name="host-game" value="HOST GAME" class="sub-btn">
-        </form>
+        <label for="nickname" class="label">Nickname</label>
+        <input type="nickname" name="nickname" id="nicknameHost" placeholder="Enter your nickname for the game here" class="input">
+        <button id="hostButton">HOST</button>
       </div>
       <div class="join-form">
-        <form action="#" method="POST">
-          <label for="gameId" class="label">Game ID</label>
-          <input type="gameId" name="gameId" id="gameId" placeholder="Enter the Game ID here" class="input">
-          <label for="nickname" class="label">Nickname</label>
-          <input type="nickname" name="nickname" id="nickname" placeholder="Enter your nickname for the game here" class="input">
-          <input type="submit" name="join-game" value="JOIN GAME" class="sub-btn"> 
-        </form>
+        <label for="gameId" class="label">Game ID</label>
+        <input type="gameId" name="gameId" id="gameId" placeholder="Enter the Game ID here" class="input">
+        <label for="nickname" class="label">Nickname</label>
+        <input type="nickname" name="nickname" id="nicknameJoin" placeholder="Enter your nickname for the game here" class="input">
+        <button id="joinButton">JOIN</button>
       </div>
     </div>
-  
-    
-  
-
+    <button id="startButton">START</button>
+    <button id="exitButton">EXIT</button>
+    <div id="gameId"></div>
+    <div id="counter"></div>
     <table id="leaderboard">
     </table>
-
     <div id="targetbox"></div>
-
-
-
-    
     <script src="./lib/firebase-app.js"></script>
     <script src="./lib/firebase-database.js"></script>
     <script>

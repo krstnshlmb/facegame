@@ -1,8 +1,9 @@
-const join_btn = document.getElementById('join_game');
-const new_btn = document.getElementById('new_game');
-const start_btn = document.getElementById('start_game');
+const join_btn = document.getElementById('joinButton');
+const new_btn = document.getElementById('hostButton');
+const start_btn = document.getElementById('startButton');
 
-const name_field = document.getElementById('nickname_field');
+const join_name_field = document.getElementById('nicknameJoin');
+const host_name_field = document.getElementById('nicknameHost');
 const game_field = document.getElementById('game_id');
 
 let currentGameId;
@@ -16,7 +17,7 @@ const game_started = new Event("game_started", {"bubbles":true, "cancelable":fal
 
 
 join_btn.addEventListener('click', function(){
-    joinGame(name_field.value, game_field.value).then(function(result){
+    joinGame(join_name_field.value, game_field.value).then(function(result){
         currentPlayerId = result;
 
         document.dispatchEvent(lobby_started);
@@ -29,7 +30,7 @@ join_btn.addEventListener('click', function(){
     
 
 new_btn.addEventListener('click', function(){
-    createNewGame(name_field.value).then(function(result){
+    createNewGame(host_name_field.value).then(function(result){
         currentGameId = result['id'];
         currentPlayerId = result['creator'];
         
