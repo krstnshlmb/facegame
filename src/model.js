@@ -27,7 +27,7 @@ video.addEventListener('play', () => {
 
   const displaySize = { width: window.innerHeight * aspectRatio, height: window.innerHeight }
   // const displaySize = {width: canvas.width, height: canvas.height};
-  console.log(displaySize, window.innerWidth, canvas);
+  // console.log(displaySize, window.innerWidth, canvas);
   faceapi.matchDimensions(canvas, displaySize)
 
   const pointer = document.getElementById('pointer');
