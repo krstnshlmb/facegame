@@ -23,7 +23,7 @@ function createNewGame(username){
         } else {
             console.log(gameID);
 
-            return gameID;
+            return [gameID, playerID];
         }
     });
 
@@ -32,23 +32,25 @@ function createNewGame(username){
 
 function joinGame(username, gameID) {
 
-    const gameChecker = db.ref('games/' + gameID);
-
     // Verifying existence of the game
-    db.ref('games/').orderByKey().equalTo(gameID).once("value", function(snapshot){
-        if(!snapshot.exists()){
-            alert('The game you are trying to join does not exist!');
+    db.ref('games/').orderByKey().equalTo(gameID).on("child_added", function(snapshot){
+        
+        const gameChecker = snapshot.key[gameID];
+
+        if(!gameChecker){
+            alert('Does not exist');
             return;
         }
+
     });
 
     // Verify nickname uniqueness
-    db.ref('games/' + gameID).orderByChild().equalTo(username).once('value', function(snapshot){
-        if(snapshot.exists()){
-            alert('Username is taken by someone else in the game!');
-            return;
-        }
-    });
+    // db.ref('games/' + gameID).orderByChild().equalTo(username).once('value', function(snapshot){
+    //     if(snapshot.exists()){
+    //         alert('Username is taken by someone else in the game!');
+    //         return;
+    //     }
+    // });
 
     const playerID = Date.now();
 
