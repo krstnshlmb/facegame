@@ -18,6 +18,8 @@ const game_started = new Event("game_started", {"bubbles":true, "cancelable":fal
 join_btn.addEventListener('click', function(){
     joinGame(name_field.value, game_field.value).then(function(result){
         currentPlayerId = result;
+
+        document.dispatchEvent(lobby_started);
     });
 
     currentGameId = game_field.value;
