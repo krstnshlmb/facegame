@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    background-color: black;
+    font-family: "Roboto", sans-serif;
+  }
+
+#container{
+  width: 25%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.host, .join{
+  width: 50%;
+  background: #fff;
+  height: 60px;
+  float: left;
+  text-align: center;
+  line-height: 60px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.host-form, .join-form{
+  background: #fff;
+  box-sizing: border-box;
+  padding: 20px;
+  clear: both;
+  width: 100%;
+  height: 250px;
+  text-align: center;
+  
+
+}
+
+.label{
+  width: 100%;
+  text-align: left;
+  display: block;
+  margin: 5px;
+  font-size: 14px;
+
+}
+
+.input{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #e9eaea;
+  color: #3e3e40;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.5s ease;
+  border-radius: 10px;
+}
+
+.input:focus{
+  border: 2px solid #59CB14;
+}
+
+.sub-btn{
+  width: 50%;
+  background: #59CB14;
+  height: 40px;
+  text-align: center;
+  line-height: 20px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+
+
+  canvas {
+    position: absolute;
+    /* justify-content: center; */
+    /* opacity: 0.2; */
+  }
+  #dimmer {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0.6;
+      position: absolute;    
+      z-index: 1;
+  }
+  #pointer {
+      width: 44px;
+      height: 44px;
+      border-radius: 22px;
+      background-color: red;
+      z-index: 2;
+      position: absolute;
+  }
+  #targetbox{
+      position: absolute; /*don't change*/
+      left: 0px;
+      top: 0px;
+      width: 200px;
+      height: 200px;
+      border-radius: 30px;
+      background: transparent;
+      border-style: solid;
+      border-color: blue;
+      border-width: 10px;
+      position: relative;
+  }
+
+  video {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(-1);
+  }
+
+  #leaderboard{
+    position: absolute;
+    color: white;
+  }
