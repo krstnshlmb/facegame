@@ -32,23 +32,23 @@ function createNewGame(username){
 
 function joinGame(username, gameID) {
 
-    // 1. Verify if game exists
-    // 2. Verify if nickname is taken
+    const gameChecker = db.ref('games/' + gameID);
 
-    var gameChecker = db.ref('games/' + gameID);
-
-    gameChecker.transaction(function(currentData){
-        if(currentData === null){
-            console.log('OH SHIT!');
+    // Verifying existence of the game
+    db.ref('games/').orderByKey().equalTo(gameID).once("value", function(snapshot){
+        if(!snapshot.exists()){
+            alert('The game you are trying to join does not exist!');
+            return;
         }
     });
 
-    if(gameChecker){
-        console.log(gameChecker);
-    } else {
-        console.log('Oh, no!');
-    }
-
+    // Verify nickname uniqueness
+    db.ref('games/' + gameID).orderByChild().equalTo(username).once('value', function(snapshot){
+        if(snapshot.exists()){
+            alert('Username is taken by someone else in the game!');
+            return;
+        }
+    });
 
     const playerID = Date.now();
 
@@ -72,3 +72,4 @@ function joinGame(username, gameID) {
 function deleteGame(){
 
 }
+
