@@ -2,9 +2,9 @@ const join_btn = document.getElementById('joinButton');
 const new_btn = document.getElementById('hostButton');
 const start_btn = document.getElementById('startButton');
 
-const join_name_field = document.getElementById('nicknameJoin');
-const host_name_field = document.getElementById('nicknameHost');
-const game_field = document.getElementById('game_id');
+const join_name_field = document.getElementById('nicknameJoinField');
+const host_name_field = document.getElementById('nicknameHostField');
+const game_field = document.getElementById('gameIdField');
 
 let currentGameId;
 let currentPlayerId;
