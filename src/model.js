@@ -1,5 +1,10 @@
 const video = document.getElementById('video')
 
+let cursor = {
+  x: 0,
+  y: 0
+}
+
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
   // faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -39,8 +44,12 @@ video.addEventListener('play', () => {
     const resizedDetections = faceapi.resizeResults(face, displaySize)
 
     const box = resizedDetections.box;
-    pointer.style.left = (canvasLeft + displaySize.width - box.left - box.width / 2) + 'px';
-    pointer.style.top = (box.top + box.height / 2) + 'px'
+
+    cursor.x = (canvasLeft + displaySize.width - box.left - box.width / 2);
+    cursor.y = (box.top + box.height / 2);
+
+    pointer.style.left = cursor.x + 'px';
+    pointer.style.top = cursor.y + 'px'
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
   
     // faceapi.draw.drawDetections(canvas, resizedDetections)
