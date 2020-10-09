@@ -2,35 +2,40 @@
 const db = firebase.database();
 
 function createNewGame(username){
-    
-    const gameID = (+new Date).toString(36);
-    const playerID = Date.now();
+    return new Promise(function(resolve, reject){
+        const gameID = (+new Date).toString(36);
+        const playerID = Date.now();
 
-    db.ref('games/' + gameID).set({
-        isReady: false,
-        players: {
-            [playerID]: {
-                name: username,
-                score: 0
+        db.ref('games/' + gameID).set({
+            isReady: false,
+            players: {
+                [playerID]: {
+                    name: username,
+                    score: 0
+                }
             }
-        }
-    },
+        }).then(function(error){
+            
+            if(error){
+                reject('Could not create new game');
     
-    function(error){
-        if(error){
-            alert('Something went wrong...');
-            return;
-        } else {
-            console.log(gameID);
+            } else {
+                console.log(gameID);
+    
+                resolve({id: gameID, creator: playerID})
+            }
+            
+        });
 
-            return [gameID, playerID];
-        }
+        
+
+        
+
     });
-
 
 }
 
-function joinGame(username, gameID) {
+async function joinGame(username, gameID) {
 
     // Verifying existence of the game
     db.ref('games/').orderByKey().equalTo(gameID).on("child_added", function(snapshot){
@@ -71,7 +76,11 @@ function joinGame(username, gameID) {
 
 }
 
-function deleteGame(){
+function leaveGame(playerID){
+
+}
+
+function deleteGame(gameID){
 
 }
 

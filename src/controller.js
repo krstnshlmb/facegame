@@ -6,16 +6,23 @@ const game_field = document.getElementById('game_id');
 
 let currentGameId;
 let currentPlayerId;
+let data;
 
-join_btn.onclick = function(){
+
+join_btn.addEventListener('click', function(){
     currentPlayerId = joinGame(name_field.value, game_field.value);
     currentGameId = game_field.value;
-}
-
-new_btn.onclick = function(){
+})
     
-    let data = createNewGame(name_field.value);
-    currentGameid = data[0];
-    currentPlayerId = data[1];
-}
+
+new_btn.addEventListener('click', function(){
+    createNewGame(name_field.value).then(function(result){
+        currentGameId = result['id'];
+        currentPlayerId = result['creator'];
+    });
+})
+    
+    
+
+
 
