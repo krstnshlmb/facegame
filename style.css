@@ -30,6 +30,18 @@ body {
       z-index: 2;
       position: absolute;
   }
+  #targetbox{
+      position: absolute; /*don't change*/
+      left: 0px;
+      top: 0px;
+      width: 200px;
+      height: 200px;
+      border-radius: 30px;
+      background: transparent;
+      border-style: solid;
+      border-color: blue;
+      border-width: 10px;
+  }
 
   video {
     position: absolute;
