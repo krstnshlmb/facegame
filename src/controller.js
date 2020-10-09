@@ -9,6 +9,8 @@ let currentGameId;
 let currentPlayerId;
 let data;
 
+let hostId;
+
 const lobby_started = new Event("lobby_started", {"bubbles":true, "cancelable":false});
 const game_started = new Event("game_started", {"bubbles":true, "cancelable":false});
 
@@ -19,6 +21,8 @@ join_btn.addEventListener('click', function(){
     });
 
     currentGameId = game_field.value;
+
+    startIsReadyListener(currentGameId);
 });
     
 
@@ -26,7 +30,8 @@ new_btn.addEventListener('click', function(){
     createNewGame(name_field.value).then(function(result){
         currentGameId = result['id'];
         currentPlayerId = result['creator'];
-    
+        
+        startIsReadyListener(currentGameId);
         
         document.dispatchEvent(lobby_started);
 
@@ -38,22 +43,21 @@ new_btn.addEventListener('click', function(){
 
 start_btn.addEventListener('click', function(){
 
-    startGame(currentGameId).then(function(result){
+    setIsReady(currentGameId).then(function(result){
         console.log(result);
     })
 
-
-
 });
 
+function startIsReadyListener(gameId){
+    
+    db.ref(`/games/${gameId}/isReady`).on('value', function(snapshot){
+        console.log(snapshot.val());
+        if(snapshot.val()){
+            document.dispatchEvent(game_started);
+        }
 
-if(currentGameId){
-    var readiness = db.ref('/games' + currentGameId + '/isReady');
-
-    readiness.on('value', function(snapshot){
-        console.log(snapshot);
-        document.dispatchEvent(game_started);
-    });
+    })
 
 }
 
