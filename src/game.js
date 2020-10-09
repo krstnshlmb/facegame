@@ -1,6 +1,8 @@
 const game_box = document.getElementById("targetbox");
 const game_vid = document.getElementById('video');
 
+game_box.style.visibility = 'hidden';
+
 const game_window_width = window.innerWidth;
 const game_window_height = window.innerHeight;
 
@@ -20,8 +22,6 @@ function gameSpawn(){
   game_box.style.top = game_box_top + 'px';
   return {left: game_box_left, top: game_box_top};
 }
-
-gameSpawn();
 
 let n = 3;//milliseconds times n to get the box
 let score = 0;
@@ -61,8 +61,16 @@ const timeout = 15000;
 function startGame(){
   //launches check overlap every n milliseconds
   //works but very CPU heavy.
+  gameSpawn();
+  game_box.style.visibility = 'visible';
   var i = setInterval(checkOverlap ,200);
-  setTimeout(function( ) { clearInterval( i ); console.log(`Final score: ${score}`);}, timeout);
+  setTimeout(function( ) { 
+    clearInterval( i ); 
+    console.log(`Final score: ${score}`);
+    game_box.visibility = 'hidden';
+  }, timeout);
 }
 
-startGame();
+document.addEventListener('game_started', e=> {
+  startGame();
+})

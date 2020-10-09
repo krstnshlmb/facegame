@@ -4,7 +4,7 @@ const db = firebase.database();
 function createNewGame(username){
     return new Promise(function(resolve, reject){
         const gameID = (+new Date).toString(36);
-        const playerID = Date.now();
+        const playerID = 'host';
 
         db.ref('games/' + gameID).set({
             isReady: false,
@@ -86,7 +86,7 @@ function deleteGame(gameID){
 
 }
 
-function startGame(gameID){
+function setIsReady(gameID){
     return new Promise(function(resolve, reject){
 
         db.ref('games/' + gameID + '/isReady').set(true).then(function(error){
