@@ -30,7 +30,7 @@ video.addEventListener('play', () => {
     if (face != undefined){
       
       const box = face.box;
-      console.log(face)
+      // console.log(face)
       pointer.style.left = (canvas.style.left + box.left) + 'px';
       pointer.style.top = (canvas.style.top + box.top) + 'px';
     }
