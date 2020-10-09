@@ -50,3 +50,8 @@ body {
     height: 100%;
     transform: scaleX(-1);
   }
+
+  #leaderboard{
+    position: absolute;
+    color: white;
+  }
