@@ -43,6 +43,7 @@ function checkOverlap(){
 
   if (n==0){
     score++;
+    updateScore(currentGameId, currentPlayerId, score);
     n=3; //milliseconds times n to get the box
     old_left = game_box_left;
     old_top = game_box_top;

@@ -99,3 +99,18 @@ function setIsReady(gameID){
         
     });
 }
+
+function updateScore(gameID, playerID, score){
+    return new Promise(function(resolve, reject){
+
+        db.ref('games/' + gameID + '/players/' + playerID + '/score').set(score).then(function(error){
+            if(error){
+                reject('Could not update score');
+            } else {
+                resolve(playerID, score);
+            }
+        });
+
+    });
+
+}
