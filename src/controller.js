@@ -5,13 +5,17 @@ const name_field = document.getElementById('nickname_field');
 const game_field = document.getElementById('game_id');
 
 let currentGameId;
+let currentPlayerId;
 
 join_btn.onclick = function(){
-    joinGame(name_field.value, game_field.value);
+    currentPlayerId = joinGame(name_field.value, game_field.value);
     currentGameId = game_field.value;
 }
 
 new_btn.onclick = function(){
-    currentGameid = createNewGame(name_field.value);
+    
+    let data = createNewGame(name_field.value);
+    currentGameid = data[0];
+    currentPlayerId = data[1];
 }
 
