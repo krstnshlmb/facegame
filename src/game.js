@@ -28,7 +28,6 @@ let score = 0;
 let old_left = 0;
 let old_top = 0;
 let start_time = -1;
-const timeout = 150000;
 
 
 function checkOverlap(){
@@ -36,39 +35,34 @@ function checkOverlap(){
     return (x>=b_l && x<=b_l+game_box_width && y>=b_t && y<=b_t+game_box_height)
   }
 
-  if (Date.now()-start_time>=timeout){
-    console.log(score);
-    return;
+  if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"])){
+    n--;
+    game_box.style.borderColor = "orange";
   }
-  else{
-    if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"])){
-      n--;
-      game_box.style.borderColor = "orange";
-    }
-    else game_box.style.borderColor = "blue";
+  else game_box.style.borderColor = "blue";
 
-    if (n==0){
-      score++;
-      n=3; //milliseconds times n to get the box
-      old_left = game_box_left;
-      old_top = game_box_top;
+  if (n==0){
+    score++;
+    n=3; //milliseconds times n to get the box
+    old_left = game_box_left;
+    old_top = game_box_top;
+    new_coords = gameSpawn();
+    game_box.style.borderColor = "blue";
+    //respawn if too close
+    while (Math.abs(new_coords["left"]-old_left) < game_box_width && Math.abs(new_coords["top"]-old_top) < game_box_height){
+      console.log("generated box too close. Respawning...");
       new_coords = gameSpawn();
-      //respawn if too close
-      while (Math.abs(new_coords["left"]-old_left) < game_box_width && Math.abs(new_coords["top"]-old_top) < game_box_height){
-        console.log("generated box too close. Respawning...");
-        new_coords = gameSpawn();
-      }
     }
   }
-  
 }
 
+const timeout = 15000;
 
 function startGame(){
   //launches check overlap every n milliseconds
   //works but very CPU heavy.
-  start_time = Date.now()
-  setInterval(checkOverlap, 200);
+  var i = setInterval(checkOverlap ,200);
+  setTimeout(function( ) { clearInterval( i ); console.log(`Final score: ${score}`);}, timeout);
 }
 
 startGame();
