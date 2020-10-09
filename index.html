@@ -7,66 +7,27 @@
   <title>Document</title>
   <script defer src="./lib/face-api.min.js"></script>
   <script defer src="./src/model.js"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      /* display: flex;
-      justify-content: center;
-      align-items: center; */
-      background-color: black;
-    }
-
-    canvas {
-      position: absolute;
-      opacity: 0.2;
-    }
-    #dimmer {
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        opacity: 0.6;
-        position: absolute;    
-        z-index: 1;
-    }
-    #pointer {
-        width: 44px;
-        height: 44px;
-        border-radius: 22px;
-        background-color: red;
-        z-index: 2;
-        position: absolute;
-    }
-
-    video {
-      position: absolute;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      transform: scaleX(-1);
-    }
-
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="pointer"></div>
     <!-- <div id="dimmer"></div> -->
-    <video id="video" width="1200" height="800" autoplay muted></video>
+    <video id="video" autoplay muted></video>
     
     <div id="lobbyList">
     </div>
 
     <div id="join">
-      <input type="nickname" placeholder="Nickname" id="nickname_input">  
-      <input type="gameId" placeholder="Game ID" id="game_id_input">
-      <button id="join_game">Join</button>
+      <input type="nickname" placeholder="Nickname">  
+      <input type="gameId" placeholder="Game ID">
+      <!-- <div></div> -->
+      <button>Join</button>
     </div>
 
     <div id="create">
       <input type="nickname" placeholder="Nickname">  
-      <button id="new_game">Create</button>
+      <button>Create</button>
+      <div> <h1>Robert loh </h1></div>
     </div>
 
     <div id="leaderboard"></div>
