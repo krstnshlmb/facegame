@@ -76,10 +76,26 @@ function joinGame(username, gameID) {
 }
 
 function leaveGame(playerID){
+    return new Promise(function(resolve, reject){
 
+
+    });
 }
 
 function deleteGame(gameID){
 
 }
 
+function startGame(gameID){
+    return new Promise(function(resolve, reject){
+
+        db.ref('games/' + gameID + '/isReady').set(true).then(function(error){
+            if(error){
+                reject('Could not start the game');
+            } else {
+                resolve();
+            }
+        })
+        
+    });
+}
