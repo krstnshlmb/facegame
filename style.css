@@ -11,7 +11,8 @@ body {
 
   canvas {
     position: absolute;
-    opacity: 0.2;
+    /* justify-content: center; */
+    /* opacity: 0.2; */
   }
   #dimmer {
       width: 100%;
