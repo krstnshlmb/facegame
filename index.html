@@ -8,7 +8,33 @@
   <script defer src="./lib/face-api.min.js"></script>
   <script defer src="./src/model.js"></script>
   <script defer src="./src/game.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".join-form").hide();
+      $(".host").css("border-bottom", "2px #59CB14 solid");
+      $(".join").css("border-bottom", "2px #fff solid");
+
+      $(".join").click(function(){
+        $(".host-form").hide();
+        $(".join-form").show();
+        $(".join").css("border-bottom", "2px #59CB14 solid");
+        $(".host").css("border-bottom", "2px #fff solid");
+      }); 
+
+      $(".host").click(function(){
+        $(".join-form").hide();
+        $(".host-form").show();
+        $(".host").css("border-bottom", "2px #59CB14 solid");
+        $(".join").css("border-bottom", "2px #fff solid");
+      });
+      
+      $("sub-btn").click(function(){
+        $(".input").val("");
+      })
+    });
+  </script>
+  <link rel="stylesheet" href="public/style.css">
 </head>
 <body>
     <div id="pointer"></div>
@@ -18,18 +44,33 @@
     <div id="lobbyList">
     </div>
 
-    <div id="join">
-      <input type="nickname" placeholder="Nickname" id="nickname_field">  
-      <input type="gameId" placeholder="Game ID" id="game_id">
-      <!-- <div></div> -->
-      <button id="join_game">Join</button>
+    <div id="container">
+      <div class="host">
+        Host a game
+      </div>
+      <div class="join">
+        Join a game
+      </div>
+      <div class="host-form">
+        <form action="#" method="POST">
+          <label for="nickname" class="label">Nickname</label>
+          <input type="nickname" name="nickname" id="nickname" placeholder="Enter your nickname for the game here" class="input">
+          <input type="submit" name="host-game" value="HOST GAME" class="sub-btn">
+        </form>
+      </div>
+      <div class="join-form">
+        <form action="#" method="POST">
+          <label for="gameId" class="label">Game ID</label>
+          <input type="gameId" name="gameId" id="gameId" placeholder="Enter the Game ID here" class="input">
+          <label for="nickname" class="label">Nickname</label>
+          <input type="nickname" name="nickname" id="nickname" placeholder="Enter your nickname for the game here" class="input">
+          <input type="submit" name="join-game" value="JOIN GAME" class="sub-btn"> 
+        </form>
+      </div>
     </div>
-
-    <div id="create">
-      <input type="nickname" placeholder="Nickname">  
-      <button id="new_game">Create</button>
-      <div> <h1>Robert loh </h1></div>
-    </div>
+  
+    
+  
 
     <table id="leaderboard">
       <!-- <tr>
