@@ -1,16 +1,77 @@
 const game_box = document.getElementById("targetbox");
+const game_vid = document.getElementById('video');
 
-const game_right_edge = 800;
-const game_bottom_edge = 400;
-const game_top_edge = 100;
-const game_left_edge = 200;
+game_box.style.visibility = 'hidden';
 
+const game_window_width = window.innerWidth;
+const game_window_height = window.innerHeight;
 
-function game_spawn(){
-  let game_box_left = 200 + Math.random()*600;
-  let game_box_top = 100 + Math.random()*200;
+const game_top_edge = 0;
+const game_left_edge = 300;
+
+const game_box_width = 200;//have to be dynamic with CSS
+const game_box_height = 200;//have to be dynamic with CSS
+
+game_box_left = 0;
+game_box_top = 0;
+
+function gameSpawn(){
+  game_box_left = 0.3*game_window_width + 0.4* Math.random() * game_window_width - game_box_width;
+  game_box_top = 0.7*Math.random() * game_window_height;
   game_box.style.left = game_box_left + 'px';
   game_box.style.top = game_box_top + 'px';
+  return {left: game_box_left, top: game_box_top};
 }
 
-game_spawn();
+let n = 3;//milliseconds times n to get the box
+let score = 0;
+let old_left = 0;
+let old_top = 0;
+let start_time = -1;
+
+
+function checkOverlap(){
+  function overlaps(b_l, b_t, x, y){
+    return (x>=b_l && x<=b_l+game_box_width && y>=b_t && y<=b_t+game_box_height)
+  }
+
+  if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"])){
+    n--;
+    game_box.style.borderColor = "orange";
+  }
+  else game_box.style.borderColor = "blue";
+
+  if (n==0){
+    score++;
+    n=3; //milliseconds times n to get the box
+    old_left = game_box_left;
+    old_top = game_box_top;
+    new_coords = gameSpawn();
+    game_box.style.borderColor = "blue";
+    //respawn if too close
+    while (Math.abs(new_coords["left"]-old_left) < game_box_width && Math.abs(new_coords["top"]-old_top) < game_box_height){
+      console.log("generated box too close. Respawning...");
+      new_coords = gameSpawn();
+    }
+  }
+}
+
+const timeout = 15000;
+
+function startGame(){
+  //launches check overlap every n milliseconds
+  //works but very CPU heavy.
+  gameSpawn();
+  game_box.style.visibility = 'visible';
+  var i = setInterval(checkOverlap ,200);
+  setTimeout(function( ) { 
+    clearInterval( i ); 
+    console.log(`Final score: ${score}`);
+    game_box.style.visibility = 'hidden';
+  }, timeout);
+}
+
+
+document.addEventListener('game_started', e=> {
+  startGame();
+})

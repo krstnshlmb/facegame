@@ -11,8 +11,7 @@ body {
   }
 
 #container{
-
-  width: 60%;
+  width: 40%;
   margin: 70px auto;
 }
 
@@ -112,7 +111,6 @@ body {
       border-style: solid;
       border-color: blue;
       border-width: 10px;
-      z-index: 5;
       position: relative;
   }
 
