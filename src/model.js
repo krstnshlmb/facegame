@@ -45,11 +45,11 @@ video.addEventListener('play', () => {
 
     const box = resizedDetections.box;
 
-    cursor.x = (canvasLeft + displaySize.width - box.left - box.width / 2);
-    cursor.y = (box.top + box.height / 2);
+    cursor.x = (canvasLeft + displaySize.width - box.x - box.width / 2);
+    cursor.y = (box.top + box.height / 2 - 22);
 
-    pointer.style.left = cursor.x + 'px';
-    pointer.style.top = cursor.y + 'px'
+    pointer.style.left = (cursor.x - 22) + 'px';
+    pointer.style.top = (cursor.y - 22) + 'px'
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
   
     // faceapi.draw.drawDetections(canvas, resizedDetections)
