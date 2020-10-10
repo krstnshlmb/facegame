@@ -131,7 +131,7 @@ canvas {
     width: 44px;
     height: 44px;
     border-radius: 22px;
-    background-color: red;
+    background-color:#E0375C;
     z-index: 2;
     position: absolute;
 }
