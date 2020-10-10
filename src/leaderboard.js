@@ -16,6 +16,7 @@ document.addEventListener('lobby_started', e => {
 })
 
 let gameIsStarted = false;
+let gameIsEnded = false;
 
 function startListeningForLeaderboard(){
     
@@ -85,7 +86,7 @@ function updateLeaderboard(snapshot){
 
     }
 
-    if(allReady && !gameIsStarted && players.length > 0) {
+    if(allReady && !gameIsStarted && players.length > 0 && !gameIsEnded) {
         console.log('game has started');
         preGameStart();
     }
@@ -102,9 +103,6 @@ function preGameStart(){
     const counterInterval = setInterval(_ => {
         if(pregameCounterTime == 0) {
             preGameCounterDiv.innerHTML = 'START!'
-            setIsReady(currentGameId, currentPlayerId, false).then(function(result){
-                console.log(result);
-            })
         } else {
             preGameCounterDiv.innerHTML = pregameCounterTime;
         }
@@ -129,5 +127,7 @@ function preGameStart(){
 document.addEventListener('game_ended',e => {
     play_again_btn.hidden = false;
     exit_btn.hidden = false;
+    
     gameIsStarted = false;
+    gameIsEnded = true;
 })
