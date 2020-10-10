@@ -36,6 +36,9 @@
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="public/style.css">
+  <script src="assets/js/login.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="pointer"></div>
@@ -43,20 +46,22 @@
     <video id="video" autoplay muted></video>
     
     <div id="container">
-      <div class="host">
-        Host a game
-      </div>
-      <div class="join">
-        Join a game
+      <div class="tabs">
+        <div class="host">
+          Host
+        </div>
+        <div class="join">
+          Join
+        </div>
       </div>
       <div class="host-form">
-        <input type="nickname" name="nickname" id="nicknameHostField" placeholder="Enter your nickname for the game here" class="input">
-        <button id="hostButton">HOST</button>
+        <input type="nickname" name="nickname" id="nicknameHostField" placeholder="nickname" class="input">
+        <button id="hostButton" class="sub-btn">HOST GAME</button>
       </div>
       <div class="join-form">
-        <input type="gameId" name="gameId" id="gameIdField" placeholder="Enter the Game ID here" class="input">
-        <input type="nickname" name="nickname" id="nicknameJoinField" placeholder="Enter your nickname for the game here" class="input">
-        <button id="joinButton">JOIN</button>
+        <input type="nickname" name="nickname" id="nicknameJoinField" placeholder="nickname" class="input">
+        <input type="gameId" name="gameId" id="gameIdField" placeholder="game id" class="input">
+        <button id="joinButton" class="sub-btn">JOIN GAME</button>
       </div>
     </div>
     

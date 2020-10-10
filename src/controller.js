@@ -76,6 +76,9 @@ start_btn.addEventListener('click', function(){
 
 
 exit_btn.addEventListener('click', function(){
+    
+    gameIsEnded = false;
+    gameIsStarted = false;
 
     leaveGame(currentGameId, currentPlayerId).then(function(result){
         leaderboard.hidden = true;
@@ -134,12 +137,40 @@ game_field.addEventListener("keyup", function(){
 });
 
 play_again_btn.addEventListener('click', function(){
-    score = 0;
+    
+    
+    updateScore(currentGameId, currentPlayerId, 0);
+
+    gameIsEnded = false;
+    gameIsStarted = false;
+
     start_btn.hidden = false;
     play_again_btn.hidden = true;
     exit_btn.hidden = true;
 
-    db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
-        updateLeaderboard(snapshot);
-    })
+    startListeningForLeaderboard();
+    
 })
+
+
+
+window.onunload = function(){
+    
+    leaveGame(currentGameId, currentPlayerId).then(function(result){
+        leaderboard.hidden = true;
+        entry.hidden = false;
+
+        exit_btn.hidden = true;
+        play_again_btn.hidden = true;
+
+        currentPlayerId = null;
+        currentGameId = null;
+
+        leaderboardWrapper.hidden = true;
+
+        counterDiv.innerHTML = "";
+
+    });
+    document.dispatchEvent(player_left);
+
+}
