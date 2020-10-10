@@ -1,3 +1,7 @@
+*{
+  font-family: 'Secular One', sans-serif;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -8,13 +12,15 @@ body {
     align-items: center; */
     background-color: black;
     font-family: 'Secular One', sans-serif;
+    overflow:hidden;
   }
 
 #container{
   width: 270px;
-  position: relative;
+  position: absolute;
   margin: 2em 2em;
   z-index: 10;
+  overflow:hidden;
 }
 
 .host, .join{
@@ -113,6 +119,9 @@ body {
   
 }
 
+::placeholder{
+  color: #C4C4C4;
+}
 
 canvas {
   position: absolute;
@@ -158,11 +167,21 @@ video {
 
 
 #leaderboardWrapper {
-  position: absolute;
+  margin: 2em 2em;
+  /* position: relative; */
   z-index: 20;
   background-color: white;
-  width: 240px;
-  height: 400px;
+  width: 270px;
+  /* height: 400px; */
+  height: auto;
+  text-align: center;
+  background-color: #362566;
+  overflow-wrap: inherit;
+  padding-bottom: 2em;
+
+  -webkit-box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
+  -moz-box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
+  box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
 }
 
 #counter {
@@ -182,6 +201,83 @@ video {
   font-size: 100px;
 }
 
-.me * {
-  color: red
+#gameId{
+  font-size: 24px;
+}
+
+.leaderboard-title{
+  display: flex;
+  justify-content: space-between; 
+  padding: 1em;
+  background-color: #26135B;
+  color: #fff;
+  align-items: center;
+}
+
+#startButton{
+  background-color: #1BABD2;
+  border-radius: 3px;
+  padding: 10px 25px;
+  color: #fff;
+  border: none;
+  /* position: absolute; */
+  bottom: 2em;
+  left: 50%;
+  width: 95%;
+  /* margin: 0 1em; */
+  /* transform: translateX(-50%); */
+  z-index: 1;
+/* 
+  -webkit-box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
+  -moz-box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
+  box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22); */
+}
+
+#leaderboard{
+  margin: 1em;
+  z-index: 1;
+  max-height: 100px;
+}
+
+#leaderboard tr{
+  background-color: #26135B;
+  display:flex;
+  justify-content: space-between;
+  color: #fff;
+  padding: 12px 10px;
+}
+
+#leaderboard td.playerName{
+  text-transform: uppercase;
+}
+
+td.playerScore{
+  float:right;
+}
+
+
+/* For myself*/
+tr.me {
+  /* color: red; */
+  background-color: #fff!important; 
+  color: #000!important;
+  align-items: center;
+}
+
+td.ready{
+  color: #1BABD2;
+}
+
+td.notReady{
+  color: #E0375C;
+}
+
+.table-wrapper{
+  display:flex;
+  flex-direction: column;
+  flex-wrap:wrap;
+}
+
+.button-wrappers{
+  padding: 0 1em;
 }
