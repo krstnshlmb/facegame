@@ -148,7 +148,7 @@ play_again_btn.addEventListener('click', function(){
     play_again_btn.hidden = true;
     exit_btn.hidden = true;
 
-    db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
+    db.ref(`/games/${currentGameId}/players`).on('value', function(snapshot) {
         updateLeaderboard(snapshot);
     })
     
