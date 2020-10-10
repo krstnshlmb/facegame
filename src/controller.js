@@ -142,4 +142,5 @@ play_again_btn.addEventListener('click', function(){
     db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
         updateLeaderboard(snapshot);
     })
+
 })

@@ -93,6 +93,7 @@ function updateLeaderboard(snapshot){
 
 function preGameStart(){
 
+
     gameIsStarted = true;
     counterDiv.innerHTML = "";
 
@@ -101,6 +102,9 @@ function preGameStart(){
     const counterInterval = setInterval(_ => {
         if(pregameCounterTime == 0) {
             preGameCounterDiv.innerHTML = 'START!'
+            setIsReady(currentGameId, currentPlayerId, false).then(function(result){
+                console.log(result);
+            })
         } else {
             preGameCounterDiv.innerHTML = pregameCounterTime;
         }
@@ -117,10 +121,6 @@ function preGameStart(){
 
         const gameStarted = new Event("game_started");
         document.dispatchEvent(gameStarted);
-
-        setIsReady(currentGameId, currentPlayerId, false).then(function(result){
-            console.log(result);
-        })
     
     }, 5 * 1000);
 
