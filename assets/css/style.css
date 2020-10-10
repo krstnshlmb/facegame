@@ -12,13 +12,15 @@ body {
     align-items: center; */
     background-color: black;
     font-family: 'Secular One', sans-serif;
+    overflow:hidden;
   }
 
 #container{
   width: 270px;
-  position: relative;
+  position: absolute;
   margin: 2em 2em;
   z-index: 10;
+  overflow:hidden;
 }
 
 .host, .join{
@@ -166,14 +168,16 @@ video {
 
 #leaderboardWrapper {
   margin: 2em 2em;
-  position: relative;
+  /* position: relative; */
   z-index: 20;
   background-color: white;
   width: 270px;
-  height: 400px;
+  /* height: 400px; */
+  height: auto;
   text-align: center;
   background-color: #362566;
   overflow-wrap: inherit;
+  padding-bottom: 2em;
 
   -webkit-box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
   -moz-box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
@@ -216,12 +220,13 @@ video {
   padding: 10px 25px;
   color: #fff;
   border: none;
-  position: absolute;
+  /* position: absolute; */
   bottom: 2em;
   left: 50%;
-  width: 90%;
+  width: 95%;
   /* margin: 0 1em; */
-  transform: translateX(-50%);
+  /* transform: translateX(-50%); */
+  z-index: 1;
 /* 
   -webkit-box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
   -moz-box-shadow: 0px 4px 4px 0px rgba(67,151,16,0.22);
@@ -230,6 +235,8 @@ video {
 
 #leaderboard{
   margin: 1em;
+  z-index: 1;
+  max-height: 100px;
 }
 
 #leaderboard tr{
