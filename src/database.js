@@ -35,41 +35,49 @@ function createNewGame(username){
 
 }
 
+function verifyGame(gameID){
+    return new Promise(function(resolve, reject){
+        
+        db.ref('games/').orderByKey().equalTo(gameID).once("value").then(function(snapshot){
+            
+            console.log(snapshot.val());
+
+            if(snapshot.val()){
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+
+        });
+
+    });
+}
+
+
 function joinGame(username, gameID) {
     return new Promise(function(resolve, reject){
 
         // Verifying existence of the game
-        // db.ref('games/').orderByKey().equalTo(gameID).on("child_added", function(snapshot){
-            
-        //     const gameChecker = snapshot.key[gameID];
+        verifyGame(gameID).then(function(exists){
 
-        //     if(!gameChecker){
-        //         alert('Does not exist');
-        //         reject('Game does not exist');
-        //     }
+            if(exists){
+                const playerID = Date.now();
 
-        // });
-
-        // Verify nickname uniqueness
-        // db.ref('games/' + gameID).orderByChild().equalTo(username).once('value', function(snapshot){
-        //     if(snapshot.exists()){
-        //         alert('Username is taken by someone else in the game!');
-        //         return;
-        //     }
-        // });
-
-        const playerID = Date.now();
-
-        db.ref('games/' + gameID + '/players/' + playerID).set({
-            name: username,
-            score: 0,
-            isReady: false
-        }).then(function(error){
-            if(error){
-                reject('Could not join the game');
+                db.ref('games/' + gameID + '/players/' + playerID).set({
+                    name: username,
+                    score: 0,
+                    isReady: false
+                }).then(function(error){
+                    if(error){
+                        reject('Could not join the game');
+                    } else {
+                        console.log(playerID + '(' + username + ')' + ' has connected succesfully');
+                        resolve(playerID);
+                    }
+                });
             } else {
-                console.log(playerID + '(' + username + ')' + ' has connected succesfully');
-                resolve(playerID);
+                alert('The game you are trying to join does not exist!');
+                reject('Game does not exist');
             }
         });
 
