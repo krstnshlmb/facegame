@@ -61,12 +61,20 @@
         <button id="joinButton">JOIN</button>
       </div>
     </div>
-    <button id="startButton">START</button>
-    <button id="exitButton">EXIT</button>
-    <div id="gameId"></div>
-    <div id="counter"></div>
-    <table id="leaderboard">
-    </table>
+    
+    <div id="gameElements">
+
+      <div id="gameId"></div>
+      <div id="counter"></div>
+      <button id="startButton">START</button>
+    </div>
+    
+    <div id="leaderboardWrapper">
+      <table id="leaderboard">
+      </table>
+      <button id="exitButton">EXIT</button>
+    </div>
+
     <div id="targetbox"></div>
     <script src="./lib/firebase-app.js"></script>
     <script src="./lib/firebase-database.js"></script>
