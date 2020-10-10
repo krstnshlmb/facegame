@@ -18,6 +18,10 @@ document.addEventListener('lobby_started', e => {
 let gameIsStarted = false;
 let gameIsEnded = false;
 
+let players = [];
+
+let playersListener;
+
 function startListeningForLeaderboard(){
     
     leaderboard.hidden = false;
@@ -25,8 +29,13 @@ function startListeningForLeaderboard(){
 
     const leaderboardPlayer = document.getElementById('leaderboardPlayer');
 
-    db.ref(`/games/${currentGameId}/players`).on('value', function(snapshot) {
-        updateLeaderboard(snapshot);
+    playersListener = db.ref(`/games/${currentGameId}/players`)
+    
+    playersListener.on('value', function(snapshot) {
+
+        if(!gameIsEnded){
+            updateLeaderboard(snapshot);
+        }
     })
 
 }
@@ -80,13 +89,13 @@ function updateLeaderboard(snapshot){
             <td class="playerName">${player.name}</td>
             <td class="playerScore ${player.isReady ? 'ready': 'notReady'}">${player.isReady}</td>
             `;
-        }
+        } 
 
         leaderboard.appendChild(rowNode);
 
     }
 
-    if(allReady && !gameIsStarted && players.length > 0 && !gameIsEnded) {
+    if(allReady && !gameIsStarted && players.length > 0) {
         console.log('game has started');
         preGameStart();
     }
@@ -119,7 +128,9 @@ function preGameStart(){
 
         const gameStarted = new Event("game_started");
         document.dispatchEvent(gameStarted);
-    
+        
+        setIsReady(currentGameId, currentPlayerId, false);
+
     }, 5 * 1000);
 
 }
@@ -130,4 +141,6 @@ document.addEventListener('game_ended',e => {
     
     gameIsStarted = false;
     gameIsEnded = true;
+
+    playersListener.off();
 })

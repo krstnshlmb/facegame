@@ -147,15 +147,11 @@ play_again_btn.addEventListener('click', function(){
     start_btn.hidden = false;
     play_again_btn.hidden = true;
     exit_btn.hidden = true;
-    
-    setIsReady(currentGameId, currentPlayerId, false).then(function(result){
 
-        db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
-            updateLeaderboard(snapshot);
-        })
-
+    db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
+        updateLeaderboard(snapshot);
     })
-
+    
 })
 
 
