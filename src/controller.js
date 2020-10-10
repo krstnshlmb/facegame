@@ -76,6 +76,9 @@ start_btn.addEventListener('click', function(){
 
 
 exit_btn.addEventListener('click', function(){
+    
+    gameIsEnded = false;
+    gameIsStarted = false;
 
     leaveGame(currentGameId, currentPlayerId).then(function(result){
         leaderboard.hidden = true;
@@ -134,14 +137,25 @@ game_field.addEventListener("keyup", function(){
 });
 
 play_again_btn.addEventListener('click', function(){
-    score = 0;
+    
+    
+    updateScore(currentGameId, currentPlayerId, 0);
+
+    gameIsEnded = false;
+    gameIsStarted = false;
+
     start_btn.hidden = false;
     play_again_btn.hidden = true;
     exit_btn.hidden = true;
+    
+    setIsReady(currentGameId, currentPlayerId, false).then(function(result){
 
-    db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
-        updateLeaderboard(snapshot);
+        db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
+            updateLeaderboard(snapshot);
+        })
+
     })
+
 })
 
 
