@@ -15,6 +15,12 @@ body {
     overflow:hidden;
   }
 
+#overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 #container{
   width: 270px;
   position: absolute;
@@ -128,6 +134,7 @@ canvas {
   position: absolute;
   /* justify-content: center; */
   /* opacity: 0.2; */
+
 }
 #dimmer {
     width: 100%;

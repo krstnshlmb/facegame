@@ -14,76 +14,79 @@
   <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="pointer"></div>
-    <!-- <div id="dimmer"></div> -->
-    <video id="video" autoplay muted></video>
-    
-    <div id="container">
-      <div class="tabs">
-        <div class="host">
-          Host
+    <div id = "overlay">
+      <div id="pointer"></div>
+      <!-- <div id="dimmer"></div> -->
+      <video id="video" autoplay muted></video>
+      
+      <div id="container">
+        <div class="tabs">
+          <div class="host">
+            Host
+          </div>
+          <div class="join">
+            Join
+          </div>
         </div>
-        <div class="join">
-          Join
+        <div class="host-form">
+          <input type="nickname" name="nickname" id="nicknameHostField" placeholder="nickname" class="input">
+          <button id="hostButton" class="sub-btn">HOST GAME</button>
+        </div>
+        <div class="join-form">
+          <input type="nickname" name="nickname" id="nicknameJoinField" placeholder="nickname" class="input">
+          <input type="gameId" name="gameId" id="gameIdField" placeholder="game id" class="input">
+          <button id="joinButton" class="sub-btn">JOIN GAME</button>
         </div>
       </div>
-      <div class="host-form">
-        <input type="nickname" name="nickname" id="nicknameHostField" placeholder="nickname" class="input">
-        <button id="hostButton" class="sub-btn">HOST GAME</button>
+      
+      <div id="gameElements">
+  
+        <div id="counter"></div>
       </div>
-      <div class="join-form">
-        <input type="nickname" name="nickname" id="nicknameJoinField" placeholder="nickname" class="input">
-        <input type="gameId" name="gameId" id="gameIdField" placeholder="game id" class="input">
-        <button id="joinButton" class="sub-btn">JOIN GAME</button>
+      
+      <div id="leaderboardWrapper">
+        <div class="leaderboard-title">
+          <div>Game ID</div>
+          <div id="gameId"></div>
+        </div>
+        <div class="table-wrapper">
+          <table id="leaderboard">
+          </table>
+        </div>
+  
+        <div class="button-wrappers">
+          <button id="playAgainButton">PLAY AGAIN</button>
+          <button id="startButton">READY</button>
+          <button id="exitButton">EXIT</button>
+        </div>
       </div>
+  
+      <div id="preGameCounter"></div>
+  
+      <div id="targetbox"></div>
+      <script src="./lib/firebase-app.js"></script>
+      <script src="./lib/firebase-database.js"></script>
+      <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyAcONMoIrHGMDcMKionnV1BDzq7o0EGqwk",
+          authDomain: "beaver-bc7f9.firebaseapp.com",
+          databaseURL: "https://beaver-bc7f9.firebaseio.com",
+          projectId: "beaver-bc7f9",
+          storageBucket: "beaver-bc7f9.appspot.com",
+          messagingSenderId: "25971064445",
+          appId: "1:25971064445:web:4f76d068cf3b815af7bb14"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      </script>
+  
+      <script src="./src/database.js"></script>
+      <script src="./src/controller.js"></script>
+  
+      <script src="./src/leaderboard.js"></script>
     </div>
     
-    <div id="gameElements">
-
-      <div id="counter"></div>
-    </div>
-    
-    <div id="leaderboardWrapper">
-      <div class="leaderboard-title">
-        <div>Game ID</div>
-        <div id="gameId"></div>
-      </div>
-      <div class="table-wrapper">
-        <table id="leaderboard">
-        </table>
-      </div>
-
-      <div class="button-wrappers">
-        <button id="playAgainButton">PLAY AGAIN</button>
-        <button id="startButton">READY</button>
-        <button id="exitButton">EXIT</button>
-      </div>
-    </div>
-
-    <div id="preGameCounter"></div>
-
-    <div id="targetbox"></div>
-    <script src="./lib/firebase-app.js"></script>
-    <script src="./lib/firebase-database.js"></script>
-    <script>
-      // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyAcONMoIrHGMDcMKionnV1BDzq7o0EGqwk",
-        authDomain: "beaver-bc7f9.firebaseapp.com",
-        databaseURL: "https://beaver-bc7f9.firebaseio.com",
-        projectId: "beaver-bc7f9",
-        storageBucket: "beaver-bc7f9.appspot.com",
-        messagingSenderId: "25971064445",
-        appId: "1:25971064445:web:4f76d068cf3b815af7bb14"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-    </script>
-
-    <script src="./src/database.js"></script>
-    <script src="./src/controller.js"></script>
-
-    <script src="./src/leaderboard.js"></script>
 
 
 </body>
