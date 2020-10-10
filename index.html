@@ -9,32 +9,8 @@
   <script defer src="./src/model.js"></script>
   <script defer src="./src/game.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      $(".join-form").hide();
-      $(".host").css("border-bottom", "3px #1BABD2 solid");
-      $(".join").css("border-bottom", "3px #26135B solid");
-
-      $(".join").click(function(){
-        $(".host-form").hide();
-        $(".join-form").show();
-        $(".join").css("border-bottom", "3px #1BABD2 solid");
-        $(".host").css("border-bottom", "3px #26135B solid");
-      }); 
-
-      $(".host").click(function(){
-        $(".join-form").hide();
-        $(".host-form").show();
-        $(".host").css("border-bottom", "3px #1BABD2 solid");
-        $(".join").css("border-bottom", "3px #26135B solid");
-      });
-      
-      $("sub-btn").click(function(){
-        $(".input").val("");
-      })
-    });
-  </script>
-  <link rel="stylesheet" href="public/style.css">
+  <script src="assets/js/login.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
 </head>
 <body>
