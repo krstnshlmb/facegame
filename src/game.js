@@ -35,14 +35,14 @@ function checkOverlap(){
     return (x>=b_l && x<=b_l+game_box_width && y>=b_t && y<=b_t+game_box_height);
   }
 
-  if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"])){
+  if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"]+22-game_box_height/2)){
     n--;
     game_box.style.borderColor = "orange";
   }
   else game_box.style.borderColor = "blue";
 
     console.log(`left: ${game_box_left}, right: ${game_box_left+game_box_width} cursor_x: ${cursor["x"]}`);
-    console.log(`top: ${game_box_top}, bottom: ${game_box_top+game_box_height} cursor_y: ${cursor["y"]}`);
+    console.log(`top: ${game_box_top}, bottom: ${game_box_top+game_box_height} cursor_y: ${cursor["y"]+22}`);
   if (n==0){
     score++;
     updateScore(currentGameId, currentPlayerId, score);
@@ -74,8 +74,7 @@ function startGame(){
   let startTime = timeout / 1000;
   
   const counterInterval = setInterval(_ => {
-    
-    counterDiv.innerHTML = startTime;
+    counterDiv.innerHTML = --startTime;
 
   }, 1000);
 
@@ -89,6 +88,7 @@ function startGame(){
 
     const e = new Event('game_ended');
     document.dispatchEvent(e);
+    score = 0;
 
   }, timeout);
 }
