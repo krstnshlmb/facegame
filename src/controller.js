@@ -145,6 +145,7 @@ play_again_btn.addEventListener('click', function(){
 })
 
 
+
 window.onunload = function(){
     
     leaveGame(currentGameId, currentPlayerId).then(function(result){
