@@ -68,7 +68,7 @@ new_btn.addEventListener('click', function(){
 
 start_btn.addEventListener('click', function(){
 
-    setIsReady(currentGameId, currentPlayerId).then(function(result){
+    setIsReady(currentGameId, currentPlayerId, true).then(function(result){
         console.log(result);
     })
     
@@ -138,4 +138,8 @@ play_again_btn.addEventListener('click', function(){
     start_btn.hidden = false;
     play_again_btn.hidden = true;
     exit_btn.hidden = true;
+
+    db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
+        updateLeaderboard(snapshot);
+    })
 })
