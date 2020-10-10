@@ -18,17 +18,24 @@ exit_btn.hidden = true;
 play_again_btn.hidden = true;
 start_btn.hidden = true;
 
+join_btn.disabled = true;
+new_btn.disabled = true;
+
 const lobby_started = new Event("lobby_started", {"bubbles":true, "cancelable":false});
 const game_started = new Event("game_started", {"bubbles":true, "cancelable":false});
 const player_left = new Event("player_left", {"bubbles":true, "cancelable":false});
 
 join_btn.addEventListener('click', function(){
-    joinGame(join_name_field.value, game_field.value).then(function(result){
+    joinGame(join_name_field.value, game_field.value.toUpperCase()).then(function(result){
         currentPlayerId = result;
 
         document.dispatchEvent(lobby_started);
 
         start_btn.hidden = false;
+
+        join_name_field.value = "";
+        game_field.value = "";
+        host_name_field.value = "";
 
     });
 
@@ -48,6 +55,11 @@ new_btn.addEventListener('click', function(){
         document.dispatchEvent(lobby_started);
 
         start_btn.hidden = false;
+
+        join_name_field.value = "";
+        game_field.value = "";
+        host_name_field.value = "";
+
     });
 
 
@@ -56,7 +68,7 @@ new_btn.addEventListener('click', function(){
 
 start_btn.addEventListener('click', function(){
 
-    setIsReady(currentGameId, currentPlayerId).then(function(result){
+    setIsReady(currentGameId, currentPlayerId, true).then(function(result){
         console.log(result);
     })
     
@@ -74,6 +86,8 @@ exit_btn.addEventListener('click', function(){
 
         currentPlayerId = null;
         currentGameId = null;
+
+        leaderboardWrapper.hidden = true;
 
         counterDiv.innerHTML = "";
 
@@ -124,4 +138,8 @@ play_again_btn.addEventListener('click', function(){
     start_btn.hidden = false;
     play_again_btn.hidden = true;
     exit_btn.hidden = true;
+
+    db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
+        updateLeaderboard(snapshot);
+    })
 })
