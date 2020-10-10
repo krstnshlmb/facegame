@@ -32,7 +32,7 @@ let start_time = -1;
 
 function checkOverlap(){
   function overlaps(b_l, b_t, x, y){
-    return (x>=b_l && x<=b_l+game_box_width && y>=b_t && y<=b_t+game_box_height)
+    return (x>=b_l && x<=b_l+game_box_width && y>=b_t && y<=b_t+game_box_height);
   }
 
   if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"])){
@@ -41,6 +41,8 @@ function checkOverlap(){
   }
   else game_box.style.borderColor = "blue";
 
+    console.log(`left: ${game_box_left}, right: ${game_box_left+game_box_width} cursor_x: ${cursor["x"]}`);
+    console.log(`top: ${game_box_top}, bottom: ${game_box_top+game_box_height} cursor_y: ${cursor["y"]}`);
   if (n==0){
     score++;
     updateScore(currentGameId, currentPlayerId, score);
@@ -72,7 +74,6 @@ function startGame(){
   let startTime = timeout / 1000;
   
   const counterInterval = setInterval(_ => {
-    console.log(startTime--);
     
     counterDiv.innerHTML = startTime;
 
