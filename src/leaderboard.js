@@ -25,59 +25,71 @@ function startListeningForLeaderboard(){
     const leaderboardPlayer = document.getElementById('leaderboardPlayer');
 
     db.ref(`/games/${currentGameId}/players`).on('value', function(snapshot) {
-        
-        leaderboard.innerHTML = "";
-
-        const val = snapshot.val();
-
-        let players = [];
-
-        for(const k in val) {
-            
-            const player = val[k];
-
-            players.push({
-                name: player.name,
-                score: player.score,
-                playerId: k,
-                isReady: player.isReady
-            })
-        }
-
-
-        players.sort((a,b)=> { return b.score - a.score });
-
-        let allReady = true;
-
-        for(const player of players) {
-            if(!player.isReady) allReady = false;
-            let rowNode = document.createElement("tr");
-    
-            if(player.playerId == currentPlayerId) {
-                rowNode.className = "me";
-            } else {
-                rowNode.className = "player";    
-            }
-
-            rowNode.innerHTML = 
-            `
-            <td>${player.name}</td>
-            <td>${player.score}</td>
-            <td>${player.isReady}</td>
-            `;
-
-            leaderboard.appendChild(rowNode);
-
-        }
-
-        if(allReady && !gameIsStarted && players.length > 0) {
-            preGameStart();
-        }
+        updateLeaderboard(snapshot);
     })
 
 }
 
+function updateLeaderboard(snapshot){
+    
+    leaderboard.innerHTML = "";
 
+    const val = snapshot.val();
+
+    let players = [];
+
+    for(const k in val) {
+
+        const player = val[k];
+
+        players.push({
+            name: player.name,
+            score: player.score,
+            playerId: k,
+            isReady: player.isReady
+        })
+    }
+
+
+    players.sort((a,b)=> { return b.score - a.score });
+
+    let allReady = true;
+
+    for(const player of players) {
+        if(!player.isReady) allReady = false;
+        let rowNode = document.createElement("tr");
+
+        if(player.playerId == currentPlayerId) {
+            rowNode.className = "me";
+        } else {
+            rowNode.className = "player";    
+        }
+
+        if(gameIsStarted) {
+            rowNode.innerHTML = 
+            `
+            <td class="playerName">${player.name}</td>
+            <td class="playerScore">${player.score}</td>
+            `;
+
+        } else {
+
+            rowNode.innerHTML = 
+            `
+            <td class="playerName">${player.name}</td>
+            <td class="playerScore ${player.isReady ? 'ready': 'notReady'}">${player.isReady}</td>
+            `;
+        }
+
+        leaderboard.appendChild(rowNode);
+
+    }
+
+    if(allReady && !gameIsStarted && players.length > 0) {
+        console.log('game has started');
+        preGameStart();
+    }
+}
 
 function preGameStart(){
 
@@ -105,6 +117,10 @@ function preGameStart(){
 
         const gameStarted = new Event("game_started");
         document.dispatchEvent(gameStarted);
+
+        setIsReady(currentGameId, currentPlayerId, false).then(function(result){
+            console.log(result);
+        })
     
     }, 5 * 1000);
 

@@ -101,10 +101,10 @@ function leaveGame(gameID, playerID){
 
 
 
-function setIsReady(gameID, playerID){
+function setIsReady(gameID, playerID, val){
     return new Promise(function(resolve, reject){
 
-        db.ref(`games/${gameID}/players/${playerID}/isReady`).set(true).then(function(error){
+        db.ref(`games/${gameID}/players/${playerID}/isReady`).set(val).then(function(error){
             if(error){
                 reject('Could not set is ready for player');
             } else {
