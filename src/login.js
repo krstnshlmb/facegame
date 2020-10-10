@@ -20,4 +20,5 @@ $(document).ready(function(){
     $("sub-btn").click(function(){
       $(".input").val("");
     })
+
 });
