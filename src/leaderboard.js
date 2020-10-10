@@ -94,6 +94,8 @@ function preGameStart(){
         clearInterval(counterInterval);
         preGameCounterDiv.innerHTML = ""
     
+        start_btn.hidden = true;
+
         const gameStarted = new Event("game_started");
         document.dispatchEvent(gameStarted);
     
@@ -102,5 +104,6 @@ function preGameStart(){
 }
 
 document.addEventListener('game_ended',e => {
-    console.log('ended');
+    play_again_btn.hidden = false;
+    exit_btn.hidden = false;
 })

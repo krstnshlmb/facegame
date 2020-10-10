@@ -42,7 +42,7 @@ function checkOverlap(){
   else game_box.style.borderColor = "blue";
   
   if (n==0){
-    score++;
+    score+= 100;
     updateScore(currentGameId, currentPlayerId, score);
     n=3; //milliseconds times n to get the box
     old_left = game_box_left;
