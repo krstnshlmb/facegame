@@ -17,7 +17,7 @@ game_box_top = 0;
 
 function gameSpawn(){
   game_box_left = 0.3*game_window_width + 0.4* Math.random() * game_window_width - game_box_width;
-  game_box_top = 0.7*Math.random() * game_window_height;
+  game_box_top = 0.5*Math.random() * game_window_height;
   game_box.style.left = game_box_left + 'px';
   game_box.style.top = game_box_top + 'px';
   return {left: game_box_left, top: game_box_top};
