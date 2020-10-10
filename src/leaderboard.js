@@ -1,13 +1,17 @@
 const gameIdDiv = document.getElementById('gameId');
 const leaderboard = document.getElementById('leaderboard');
+const leaderboardWrapper = document.getElementById('leaderboardWrapper');
 const entry = document.getElementById('container');
 const preGameCounterDiv = document.getElementById('preGameCounter');
 
-leaderboard.hidden = true;
+leaderboardWrapper.hidden = true;
 
 document.addEventListener('lobby_started', e => {
 
     gameIdDiv.innerHTML = currentGameId;
+
+    leaderboardWrapper.hidden = false;
+
     startListeningForLeaderboard();
 })
 
@@ -41,7 +45,7 @@ function startListeningForLeaderboard(){
         }
 
 
-        players.sort((a,b)=> { return a.score > b.score });
+        players.sort((a,b)=> { return b.score - a.score });
 
         let allReady = true;
 
@@ -76,9 +80,11 @@ function startListeningForLeaderboard(){
 
 
 function preGameStart(){
+
     gameIsStarted = true;
 
     let pregameCounterTime = 3;
+
     const counterInterval = setInterval(_ => {
         if(pregameCounterTime == 0) {
             preGameCounterDiv.innerHTML = 'START!'
