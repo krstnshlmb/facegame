@@ -59,16 +59,36 @@ function checkOverlap(){
 
 const timeout = 15000;
 
+const counterDiv = document.getElementById('counter');
+
 function startGame(){
   //launches check overlap every n milliseconds
   //works but very CPU heavy.
   gameSpawn();
   game_box.style.visibility = 'visible';
-  var i = setInterval(checkOverlap ,200);
+  
+  const i = setInterval(checkOverlap ,200);
+
+  let startTime = timeout / 1000;
+  
+  const counterInterval = setInterval(_ => {
+    console.log(startTime--);
+    
+    counterDiv.innerHTML = startTime;
+
+  }, 1000);
+
   setTimeout(function( ) { 
+    
     clearInterval( i ); 
+    clearInterval(counterInterval);
+
     console.log(`Final score: ${score}`);
     game_box.style.visibility = 'hidden';
+
+    const e = new Event('game_ended');
+    document.dispatchEvent(e);
+
   }, timeout);
 }
 
