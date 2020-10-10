@@ -87,7 +87,7 @@ function updateLeaderboard(snapshot){
             rowNode.innerHTML = 
             `
             <td class="playerName">${player.name}</td>
-            <td class="playerScore ${player.isReady ? 'ready': 'notReady'}">${player.isReady}</td>
+            <td class="playerScore ${player.isReady ? 'ready': 'notReady'}">${player.isReady ? 'Ready' : 'Not Ready'}</td>
             `;
         } 
 
