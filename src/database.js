@@ -3,7 +3,7 @@ const db = firebase.database();
 
 function createNewGame(username){
     return new Promise(function(resolve, reject){
-        const gameID = (+new Date).toString(36);
+        const gameID = (+new Date).toString(36).substring(2).toUpperCase();
         const playerID = Date.now();
 
         db.ref('games/' + gameID).set({
