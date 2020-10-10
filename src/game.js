@@ -35,7 +35,7 @@ function checkOverlap(){
     return (x>=b_l && x<=b_l+game_box_width && y>=b_t && y<=b_t+game_box_height);
   }
 
-  if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"]-game_box_height/2)){
+  if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"]-22)){
     n--;
     game_box.style.borderColor = "orange";
   }
