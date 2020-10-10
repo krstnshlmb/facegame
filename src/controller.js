@@ -15,6 +15,7 @@ let hostId;
 const lobby_started = new Event("lobby_started", {"bubbles":true, "cancelable":false});
 const game_started = new Event("game_started", {"bubbles":true, "cancelable":false});
 
+start_btn.hidden = true;
 
 join_btn.addEventListener('click', function(){
     joinGame(join_name_field.value, game_field.value).then(function(result){
@@ -38,6 +39,7 @@ new_btn.addEventListener('click', function(){
         
         document.dispatchEvent(lobby_started);
 
+        start_btn.hidden = false;
     });
 
 
