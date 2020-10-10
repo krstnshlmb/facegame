@@ -142,5 +142,27 @@ play_again_btn.addEventListener('click', function(){
     db.ref(`/games/${currentGameId}/players`).once('value', function(snapshot) {
         updateLeaderboard(snapshot);
     })
-
 })
+
+
+
+window.onunload = function(){
+    
+    leaveGame(currentGameId, currentPlayerId).then(function(result){
+        leaderboard.hidden = true;
+        entry.hidden = false;
+
+        exit_btn.hidden = true;
+        play_again_btn.hidden = true;
+
+        currentPlayerId = null;
+        currentGameId = null;
+
+        leaderboardWrapper.hidden = true;
+
+        counterDiv.innerHTML = "";
+
+    });
+    document.dispatchEvent(player_left);
+
+}
