@@ -1,6 +1,7 @@
 const gameIdDiv = document.getElementById('gameId');
 const leaderboard = document.getElementById('leaderboard');
 const entry = document.getElementById('container');
+const preGameCounterDiv = document.getElementById('preGameCounter');
 
 leaderboard.hidden = true;
 
@@ -9,6 +10,8 @@ document.addEventListener('lobby_started', e => {
     gameIdDiv.innerHTML = currentGameId;
     startListeningForLeaderboard();
 })
+
+let gameIsStarted = false;
 
 function startListeningForLeaderboard(){
     
@@ -33,16 +36,17 @@ function startListeningForLeaderboard(){
                 name: player.name,
                 score: player.score,
                 playerId: k,
+                isReady: player.isReady
             })
         }
 
 
         players.sort((a,b)=> { return a.score > b.score });
-        
-        console.log(players);
+
+        let allReady = true;
 
         for(const player of players) {
-
+            if(!player.isReady) allReady = false;
             let rowNode = document.createElement("tr");
     
             if(player.playerId == currentPlayerId) {
@@ -55,12 +59,40 @@ function startListeningForLeaderboard(){
             `
             <td>${player.name}</td>
             <td>${player.score}</td>
+            <td>${player.isReady}</td>
             `;
 
             leaderboard.appendChild(rowNode);
 
         }
+
+        if(allReady && !gameIsStarted) {
+            preGameStart();
+        }
     })
+
+}
+
+
+
+function preGameStart(){
+    gameIsStarted = true;
+    let pregameCounterTime = 4;
+    const counterInterval = setInterval(_ => {
+        pregameCounterTime--;
+        preGameCounterDiv.innerHTML = pregameCounterTime;
+        
+    }, 1000);
+
+    setTimeout(function( ) { 
+
+        clearInterval(counterInterval);
+        preGameCounterDiv.innerHTML = 'START!'
+    
+        const gameStarted = new Event("game_started");
+        document.dispatchEvent(gameStarted);
+    
+    }, pregameCounterTime * 1000);
 
 }
 

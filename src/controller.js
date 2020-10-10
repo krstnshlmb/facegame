@@ -15,8 +15,6 @@ let hostId;
 const lobby_started = new Event("lobby_started", {"bubbles":true, "cancelable":false});
 const game_started = new Event("game_started", {"bubbles":true, "cancelable":false});
 
-start_btn.hidden = true;
-
 join_btn.addEventListener('click', function(){
     joinGame(join_name_field.value, game_field.value).then(function(result){
         currentPlayerId = result;
@@ -26,7 +24,7 @@ join_btn.addEventListener('click', function(){
 
     currentGameId = game_field.value;
 
-    startIsReadyListener(currentGameId);
+    // startIsReadyListener(currentGameId);
 });
     
 
@@ -35,11 +33,9 @@ new_btn.addEventListener('click', function(){
         currentGameId = result['id'];
         currentPlayerId = result['creator'];
         
-        startIsReadyListener(currentGameId);
+        // startIsReadyListener(currentGameId);
         
         document.dispatchEvent(lobby_started);
-
-        start_btn.hidden = false;
     });
 
 
@@ -48,21 +44,21 @@ new_btn.addEventListener('click', function(){
 
 start_btn.addEventListener('click', function(){
 
-    setIsReady(currentGameId).then(function(result){
+    setIsReady(currentGameId, currentPlayerId).then(function(result){
         console.log(result);
     })
-
+    
 });
 
-function startIsReadyListener(gameId){
+// function startIsReadyListener(gameId){
     
-    db.ref(`/games/${gameId}/isReady`).on('value', function(snapshot){
-        console.log(snapshot.val());
-        if(snapshot.val()){
-            document.dispatchEvent(game_started);
-        }
+//     db.ref(`/games/${gameId}/isReady`).on('value', function(snapshot){
+//         console.log(snapshot.val());
+//         if(snapshot.val()){
+//             document.dispatchEvent(game_started);
+//         }
 
-    })
+//     })
 
-}
+// }
 
