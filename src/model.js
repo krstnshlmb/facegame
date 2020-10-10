@@ -1,4 +1,6 @@
 const video = document.getElementById('video')
+const pointer = document.getElementById('pointer');
+pointer.hidden = true;
 
 let cursor = {
   x: 0,
@@ -35,9 +37,10 @@ video.addEventListener('play', () => {
   // console.log(displaySize, window.innerWidth, canvas);
   faceapi.matchDimensions(canvas, displaySize)
 
-  const pointer = document.getElementById('pointer');
   setInterval(async () => {
     const face = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+
+    pointer.hidden = false;
 
     if(face == undefined) return;
 

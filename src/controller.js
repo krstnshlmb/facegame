@@ -2,6 +2,7 @@ const join_btn = document.getElementById('joinButton');
 const new_btn = document.getElementById('hostButton');
 const start_btn = document.getElementById('startButton');
 const exit_btn = document.getElementById('exitButton');
+const play_again_btn = document.getElementById('playAgainButton');
 
 const join_name_field = document.getElementById('nicknameJoinField');
 const host_name_field = document.getElementById('nicknameHostField');
@@ -13,6 +14,10 @@ let data;
 
 let hostId;
 
+exit_btn.hidden = true;
+play_again_btn.hidden = true;
+start_btn.hidden = true;
+
 const lobby_started = new Event("lobby_started", {"bubbles":true, "cancelable":false});
 const game_started = new Event("game_started", {"bubbles":true, "cancelable":false});
 const player_left = new Event("player_left", {"bubbles":true, "cancelable":false});
@@ -22,6 +27,9 @@ join_btn.addEventListener('click', function(){
         currentPlayerId = result;
 
         document.dispatchEvent(lobby_started);
+
+        start_btn.hidden = false;
+
     });
 
     currentGameId = game_field.value;
@@ -38,6 +46,8 @@ new_btn.addEventListener('click', function(){
         // startIsReadyListener(currentGameId);
         
         document.dispatchEvent(lobby_started);
+
+        start_btn.hidden = false;
     });
 
 
@@ -54,6 +64,16 @@ start_btn.addEventListener('click', function(){
 
 
 exit_btn.addEventListener('click', function(){
+    
+    leaderboard.hidden = true;
+    entry.hidden = false;
+
+    currentPlayerId = null;
+    currentGameId = null;
+
+    exit_btn.hidden = true;
+    play_again_btn.hidden = true;
+
     leaveGame(currentGameId, currentPlayerId);
     document.dispatchEvent(player_left);
 });
@@ -94,3 +114,10 @@ game_field.addEventListener("keyup", function(){
         join_btn.disabled = false;
     }
 });
+
+play_again_btn.addEventListener('click', function(){
+    score = 0;
+    start_btn.hidden = false;
+    play_again_btn.hidden = true;
+    exit_btn.hidden = true;
+})

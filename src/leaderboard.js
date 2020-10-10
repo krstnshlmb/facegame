@@ -77,25 +77,33 @@ function startListeningForLeaderboard(){
 
 function preGameStart(){
     gameIsStarted = true;
-    let pregameCounterTime = 4;
+
+    let pregameCounterTime = 3;
     const counterInterval = setInterval(_ => {
+        if(pregameCounterTime == 0) {
+            preGameCounterDiv.innerHTML = 'START!'
+        } else {
+            preGameCounterDiv.innerHTML = pregameCounterTime;
+        }
         pregameCounterTime--;
-        preGameCounterDiv.innerHTML = pregameCounterTime;
-        
+
     }, 1000);
 
     setTimeout(function( ) { 
 
         clearInterval(counterInterval);
-        preGameCounterDiv.innerHTML = 'START!'
+        preGameCounterDiv.innerHTML = ""
     
+        start_btn.hidden = true;
+
         const gameStarted = new Event("game_started");
         document.dispatchEvent(gameStarted);
     
-    }, pregameCounterTime * 1000);
+    }, 5 * 1000);
 
 }
 
 document.addEventListener('game_ended',e => {
-    console.log('ended');
+    play_again_btn.hidden = false;
+    exit_btn.hidden = false;
 })
