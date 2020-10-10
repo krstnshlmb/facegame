@@ -1,6 +1,7 @@
 const join_btn = document.getElementById('joinButton');
 const new_btn = document.getElementById('hostButton');
 const start_btn = document.getElementById('startButton');
+const exit_btn = document.getElementById('exitButton');
 
 const join_name_field = document.getElementById('nicknameJoinField');
 const host_name_field = document.getElementById('nicknameHostField');
@@ -14,6 +15,7 @@ let hostId;
 
 const lobby_started = new Event("lobby_started", {"bubbles":true, "cancelable":false});
 const game_started = new Event("game_started", {"bubbles":true, "cancelable":false});
+const player_left = new Event("player_left", {"bubbles":true, "cancelable":false});
 
 start_btn.hidden = true;
 
@@ -54,6 +56,12 @@ start_btn.addEventListener('click', function(){
 
 });
 
+
+exit_btn.addEventListener('click', function(){
+    leaveGame(currentGameId, currentPlayerId);
+    document.dispatchEvent(player_left);
+});
+
 function startIsReadyListener(gameId){
     
     db.ref(`/games/${gameId}/isReady`).on('value', function(snapshot){
@@ -66,3 +74,26 @@ function startIsReadyListener(gameId){
 
 }
 
+host_name_field.addEventListener("keyup", function(){
+    if(host_name_field.value.trim() == ""){
+        new_btn.disabled = true;
+    } else {
+        new_btn.disabled = false;
+    }
+});
+
+join_name_field.addEventListener("keyup", function(){
+    if(join_name_field.value.trim() == "" || game_field.value.trim() == ""){
+        join_btn.disabled = true;
+    } else {
+        join_btn.disabled = false;
+    }
+});
+
+game_field.addEventListener("keyup", function(){
+    if(join_name_field.value.trim() == "" || game_field.value.trim() == ""){
+        join_btn.disabled = true;
+    } else {
+        join_btn.disabled = false;
+    }
+});

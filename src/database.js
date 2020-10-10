@@ -4,7 +4,7 @@ const db = firebase.database();
 function createNewGame(username){
     return new Promise(function(resolve, reject){
         const gameID = (+new Date).toString(36);
-        const playerID = 'host';
+        const playerID = Date.now();
 
         db.ref('games/' + gameID).set({
             isReady: false,
@@ -75,16 +75,22 @@ function joinGame(username, gameID) {
     });
 }
 
-function leaveGame(playerID){
+function leaveGame(gameID, playerID){
     return new Promise(function(resolve, reject){
 
+        db.ref('games/' + gameID + '/players/' + playerID).remove().then(function(error){
+            if(error){
+                reject('Could not leave game');
+            } else {
+                console.log('The game was left succesfully');
+                resolve({id: gameID, player: playerID});
+            }
+        })
 
     });
 }
 
-function deleteGame(gameID){
 
-}
 
 function setIsReady(gameID){
     return new Promise(function(resolve, reject){
