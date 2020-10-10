@@ -64,7 +64,7 @@ start_btn.addEventListener('click', function(){
 
 
 exit_btn.addEventListener('click', function(){
-    
+
     leaveGame(currentGameId, currentPlayerId).then(function(result){
         leaderboard.hidden = true;
         entry.hidden = false;
@@ -74,6 +74,9 @@ exit_btn.addEventListener('click', function(){
 
         currentPlayerId = null;
         currentGameId = null;
+
+        counterDiv.innerHTML = "";
+
     });
     document.dispatchEvent(player_left);
     
