@@ -37,9 +37,9 @@ function checkOverlap(){
 
   if (overlaps(game_box_left, game_box_top, cursor["x"], cursor["y"]-22)){
     n--;
-    game_box.style.borderColor = "orange";
+    game_box.style.borderColor = "#FFC340";
   }
-  else game_box.style.borderColor = "blue";
+  else game_box.style.borderColor = "#1BABD2";
   
   if (n==0){
     score+= 100;
@@ -48,7 +48,7 @@ function checkOverlap(){
     old_left = game_box_left;
     old_top = game_box_top;
     new_coords = gameSpawn();
-    game_box.style.borderColor = "blue";
+    game_box.style.borderColor = "#1BABD2";
     //respawn if too close
     while (Math.abs(new_coords["left"]-old_left) < game_box_width && Math.abs(new_coords["top"]-old_top) < game_box_height){
       console.log("generated box too close. Respawning...");
