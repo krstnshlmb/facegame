@@ -76,16 +76,22 @@ function joinGame(username, gameID) {
     });
 }
 
-function leaveGame(playerID){
+function leaveGame(gameID, playerID){
     return new Promise(function(resolve, reject){
 
+        db.ref('games/' + gameID + '/players/' + playerID).remove().then(function(error){
+            if(error){
+                reject('Could not leave game');
+            } else {
+                console.log('The game was left succesfully');
+                resolve({id: gameID, player: playerID});
+            }
+        })
 
     });
 }
 
-function deleteGame(gameID){
 
-}
 
 function setIsReady(gameID, playerID){
     return new Promise(function(resolve, reject){
