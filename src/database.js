@@ -7,11 +7,11 @@ function createNewGame(username){
         const playerID = Date.now();
 
         db.ref('games/' + gameID).set({
-            isReady: false,
             players: {
                 [playerID]: {
                     name: username,
-                    score: 0
+                    score: 0,
+                    isReady: false
                 }
             }
         }).then(function(error){
@@ -62,7 +62,8 @@ function joinGame(username, gameID) {
 
         db.ref('games/' + gameID + '/players/' + playerID).set({
             name: username,
-            score: 0
+            score: 0,
+            isReady: false
         }).then(function(error){
             if(error){
                 reject('Could not join the game');
@@ -92,14 +93,14 @@ function leaveGame(gameID, playerID){
 
 
 
-function setIsReady(gameID){
+function setIsReady(gameID, playerID){
     return new Promise(function(resolve, reject){
 
-        db.ref('games/' + gameID + '/isReady').set(true).then(function(error){
+        db.ref(`games/${gameID}/players/${playerID}/isReady`).set(true).then(function(error){
             if(error){
-                reject('Could not start the game');
+                reject('Could not set is ready for player');
             } else {
-                resolve();
+                resolve(true);
             }
         })
         
