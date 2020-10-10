@@ -70,7 +70,7 @@ function startListeningForLeaderboard(){
 
         }
 
-        if(allReady && !gameIsStarted) {
+        if(allReady && !gameIsStarted && players.length > 0) {
             preGameStart();
         }
     })
@@ -82,6 +82,7 @@ function startListeningForLeaderboard(){
 function preGameStart(){
 
     gameIsStarted = true;
+    counterDiv.innerHTML = "";
 
     let pregameCounterTime = 3;
 
@@ -112,4 +113,5 @@ function preGameStart(){
 document.addEventListener('game_ended',e => {
     play_again_btn.hidden = false;
     exit_btn.hidden = false;
+    gameIsStarted = false;
 })

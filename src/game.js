@@ -71,6 +71,8 @@ function startGame(){
 
   let startTime = timeout / 1000;
   
+  counterDiv.innerHTML = 0;
+
   const counterInterval = setInterval(_ => {
     counterDiv.innerHTML = --startTime;
 
@@ -87,6 +89,8 @@ function startGame(){
     const e = new Event('game_ended');
     document.dispatchEvent(e);
     score = 0;
+
+    counterDiv.innerHTML = 'GAME ENDED';
 
   }, timeout);
 }

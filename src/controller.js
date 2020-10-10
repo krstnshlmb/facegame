@@ -64,18 +64,22 @@ start_btn.addEventListener('click', function(){
 
 
 exit_btn.addEventListener('click', function(){
-    
-    leaderboard.hidden = true;
-    entry.hidden = false;
 
-    currentPlayerId = null;
-    currentGameId = null;
+    leaveGame(currentGameId, currentPlayerId).then(function(result){
+        leaderboard.hidden = true;
+        entry.hidden = false;
 
-    exit_btn.hidden = true;
-    play_again_btn.hidden = true;
+        exit_btn.hidden = true;
+        play_again_btn.hidden = true;
 
-    leaveGame(currentGameId, currentPlayerId);
+        currentPlayerId = null;
+        currentGameId = null;
+
+        counterDiv.innerHTML = "";
+
+    });
     document.dispatchEvent(player_left);
+    
 });
 
 function startIsReadyListener(gameId){
