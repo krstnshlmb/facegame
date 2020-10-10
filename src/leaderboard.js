@@ -1,4 +1,8 @@
 const gameIdDiv = document.getElementById('gameId');
+const leaderboard = document.getElementById('leaderboard');
+const entry = document.getElementById('container');
+
+leaderboard.hidden = true;
 
 document.addEventListener('lobby_started', e => {
 
@@ -7,8 +11,10 @@ document.addEventListener('lobby_started', e => {
 })
 
 function startListeningForLeaderboard(){
-    const leaderboard = document.getElementById('leaderboard');
     
+    leaderboard.hidden = false;
+    entry.hidden = true;
+
     const leaderboardPlayer = document.getElementById('leaderboardPlayer');
 
     db.ref(`/games/${currentGameId}/players`).on('value', function(snapshot) {
@@ -57,3 +63,7 @@ function startListeningForLeaderboard(){
     })
 
 }
+
+document.addEventListener('game_ended',e => {
+    console.log('ended');
+})
