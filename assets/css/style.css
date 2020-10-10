@@ -34,9 +34,17 @@ body {
   font-weight: bold;
   background: #26135B;
   color: white;
-  box-shadow: 0px 4px 1px 0px rgba(0, 0, 0, 0.25)
 }
 
+.host:hover{
+  background: #362566;
+  cursor: pointer;
+}
+
+.join:hover{
+  background: #362566;
+  cursor: pointer;
+}
 
 .host-form, .join-form{
   background: #362566;
@@ -74,7 +82,7 @@ body {
   padding: 10px;
   margin-bottom: 15px;
   border: 2px solid #e9eaea;
-  color: #707070;
+  color: #000000;
   font-size: 14px;
   outline: none;
   transition: all 0.5s ease;
@@ -87,7 +95,7 @@ body {
 }
 
 .input:focus{
-  border: 2px solid #59CB14;
+  border: 2px solid #1BABD2;
 }
 
 .sub-btn{
@@ -105,18 +113,11 @@ body {
   height: 40px;
   text-align: center;
   line-height: 23px;
+}
 
-
-
-  /* width: 50%;
-  height: 40px;
-  text-align: center;
-  line-height: 23px;
-
+.sub-btn:hover{
+  background-color: #4FD0F3;
   cursor: pointer;
-  margin-bottom: 30px;
-  box-shadow: 0px 2px 0px rgba(67, 151, 16, 0.22); */
-  
 }
 
 ::placeholder{
