@@ -1,4 +1,11 @@
 const video = document.getElementById('video')
+const pointer = document.getElementById('pointer');
+pointer.hidden = true;
+
+let cursor = {
+  x: 0,
+  y: 0
+}
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -7,37 +14,48 @@ Promise.all([
   // faceapi.nets.faceExpressionNet.loadFromUri('/models')
 ]).then(startVideo)
 
-function startVideo() {
-  navigator.getUserMedia(
-    { video: {} },
-    stream => video.srcObject = stream,
-    err => console.error(err)
-  )
+async function startVideo() {
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({video:{}});
+    video.srcObject = stream;
+  }
+  catch(err){
+    console.error(err)
+  }
 }
 
 video.addEventListener('play', () => {
   const canvas = faceapi.createCanvasFromMedia(video)
   document.body.append(canvas)
-  const displaySize = { width: window.innerWidth, height: window.innerHeight }
+
+  const aspectRatio = video.videoWidth / video.videoHeight;
+  const canvasLeft = (window.innerWidth - window.innerHeight * aspectRatio) / 2
+  canvas.style.left = canvasLeft + 'px';
+
+  const displaySize = { width: window.innerHeight * aspectRatio, height: window.innerHeight }
+  // const displaySize = {width: canvas.width, height: canvas.height};
+  // console.log(displaySize, window.innerWidth, canvas);
   faceapi.matchDimensions(canvas, displaySize)
 
-  const pointer = document.getElementById('pointer');
   setInterval(async () => {
     const face = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
 
+    pointer.hidden = false;
+
     if(face == undefined) return;
 
-    if (face != undefined){
-      
-      const box = face.box;
-      console.log(face)
-      pointer.style.left = (canvas.style.left + box.left) + 'px';
-      pointer.style.top = (canvas.style.top + box.top) + 'px';
-    }
-
     const resizedDetections = faceapi.resizeResults(face, displaySize)
+
+    const box = resizedDetections.box;
+
+    cursor.x = (canvasLeft + displaySize.width - box.x - box.width / 2);
+    cursor.y = (box.top + box.height / 2 - 22);
+
+    pointer.style.left = (cursor.x - 22) + 'px';
+    pointer.style.top = (cursor.y - 22) + 'px'
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-    faceapi.draw.drawDetections(canvas, resizedDetections)
+  
+    // faceapi.draw.drawDetections(canvas, resizedDetections)
     // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
     // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
   }, 100)
