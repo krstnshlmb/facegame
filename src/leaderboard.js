@@ -16,6 +16,11 @@ document.addEventListener('lobby_started', e => {
 })
 
 let gameIsStarted = false;
+let gameIsEnded = false;
+
+let players = [];
+
+let playersListener;
 
 function startListeningForLeaderboard(){
     
@@ -24,8 +29,13 @@ function startListeningForLeaderboard(){
 
     const leaderboardPlayer = document.getElementById('leaderboardPlayer');
 
-    db.ref(`/games/${currentGameId}/players`).on('value', function(snapshot) {
-        updateLeaderboard(snapshot);
+    playersListener = db.ref(`/games/${currentGameId}/players`)
+    
+    playersListener.on('value', function(snapshot) {
+
+        if(!gameIsEnded){
+            updateLeaderboard(snapshot);
+        }
     })
 
 }
@@ -79,7 +89,7 @@ function updateLeaderboard(snapshot){
             <td class="playerName">${player.name}</td>
             <td class="playerScore ${player.isReady ? 'ready': 'notReady'}">${player.isReady}</td>
             `;
-        }
+        } 
 
         leaderboard.appendChild(rowNode);
 
@@ -92,6 +102,7 @@ function updateLeaderboard(snapshot){
 }
 
 function preGameStart(){
+
 
     gameIsStarted = true;
     counterDiv.innerHTML = "";
@@ -117,11 +128,9 @@ function preGameStart(){
 
         const gameStarted = new Event("game_started");
         document.dispatchEvent(gameStarted);
+        
+        setIsReady(currentGameId, currentPlayerId, false);
 
-        setIsReady(currentGameId, currentPlayerId, false).then(function(result){
-            console.log(result);
-        })
-    
     }, 5 * 1000);
 
 }
@@ -129,5 +138,9 @@ function preGameStart(){
 document.addEventListener('game_ended',e => {
     play_again_btn.hidden = false;
     exit_btn.hidden = false;
+    
     gameIsStarted = false;
+    gameIsEnded = true;
+
+    playersListener.off();
 })
