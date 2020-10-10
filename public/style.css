@@ -130,3 +130,11 @@ body {
     position: absolute;
     color: white;
   }
+
+  #counter {
+    color:white;
+  }
+
+  #gameId{
+    color: white;
+  }

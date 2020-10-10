@@ -1,5 +1,8 @@
+const gameIdDiv = document.getElementById('gameId');
 
 document.addEventListener('lobby_started', e => {
+
+    gameIdDiv.innerHTML = currentGameId;
     startListeningForLeaderboard();
 })
 
@@ -22,16 +25,26 @@ function startListeningForLeaderboard(){
 
             players.push({
                 name: player.name,
-                score: player.score
+                score: player.score,
+                playerId: k,
             })
         }
 
-        players = players.sort((a,b)=> { return a.score > b.score });
+
+        players.sort((a,b)=> { return a.score > b.score });
+        
+        console.log(players);
 
         for(const player of players) {
 
             let rowNode = document.createElement("tr");
-            
+    
+            if(player.playerId == currentPlayerId) {
+                rowNode.className = "me";
+            } else {
+                rowNode.className = "player";    
+            }
+
             rowNode.innerHTML = 
             `
             <td>${player.name}</td>
