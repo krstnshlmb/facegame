@@ -139,8 +139,16 @@ document.addEventListener('game_ended',e => {
     play_again_btn.hidden = false;
     exit_btn.hidden = false;
     
-    gameIsStarted = false;
-    gameIsEnded = true;
-
     playersListener.off();
+
+    // reading data once again after listener cut off
+
+    setTimeout(_ => {
+        playersListener.once('value', function(snapshot) {
+            updateLeaderboard(snapshot);
+
+            gameIsStarted = false;
+            gameIsEnded = true;
+        })
+    }, 100);
 })
